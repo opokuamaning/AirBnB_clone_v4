@@ -18,7 +18,8 @@ $( document ).ready(function () {
     display red circle on top right of page if status ok
    *******************************************************/
   $.get('http://0.0.0.0:5001/api/v1/status/', function (data, textStatus) {
-    if (textStatus === 'OK') {
+    alert(textStatus);
+    if (textStatus == 'OK') {
       $('#api_status').addClass('available');
     } else {
       $('#api_status').removeClass('available');
