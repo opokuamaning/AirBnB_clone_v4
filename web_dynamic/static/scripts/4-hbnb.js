@@ -3,58 +3,64 @@ $( document ).ready(function () {
   /*****************************************************
     display list of checkboxes clicked
    *****************************************************/
-  let ls_amen = [];
-  $("input[type='checkbox']").change (function () {
-    let checked = $(this).attr('data-name');
-      if ($(this).is(':checked')) {
-	ls_amen.push(" " + checked);
-      } else {
-	ls_amen.splice(checked, 1);
-      }
-    $('.amenities h4').text(ls_amen);
+  let ls_amen = {};
+  $('input[type=checkbox]').change (function () {
+    if ($(this).is(':checked')) {
+      ls_amen[$(this).attr('data-id')] = $(this).attr('data-name');
+    } else {
+      delete ls_amen[$(this).data('id')];
+    }
+    $('.amenities h4').text(Object.values(ls_amen).join(', '));
   });
 
   /*******************************************************
     display red circle on top right of page if status ok
    *******************************************************/
-  $.get('http://0.0.0.0:5001/api/v1/status/', function (data, textStatus) {
-    if (textStatus === 'OK') {
-      $('#api_status').addClass('available');
-    } else {
-      $('#api_status').removeClass('available');
+  $.ajax({
+    type: 'GET',
+    url: 'http://0.0.0.0:5001/api/v1/status/',
+    dataType: 'json',
+    success: function (data) {
+      if (data.status === 'OK') {
+	$('#api_status').addClass('available');
+      } else {
+	$('#api_status').removeClass('available');
+      }
     }
   });
-
 
   /*******************************************************
     populate Places from frontend, instead of backend jinja
    *******************************************************/
-  $.post('http://0.0.0.0:5001/api/v1/places_search/',
-  {
-    Content-Type: 'application/json',
-    data: {}
-  },
-  function(data, textStatus) {
-    for (let i = 0; i < data.length - 1; i++) {
-      $('section.places').append('<article>' + data[i] + '</article>');
-    }
-  });
-
+    $.ajax({
+      type: 'POST',
+      url: 'http://127.0.0.1:5002/api/v1/places_search/',
+      data: JSON.stringify({}),
+      contentType: 'application/json',
+      success: function (data) {
+	for (let i = 0; i < data.length; i++) {
+	  $('section.places').append('<article><div class="title"><h2>' + data[i].name + '</h2><div class="price_by_night">' + data[i].price_by_night + '</div></div><div class="information"><div class="max_guest"><i class="fa fa-users fa-3x" aria-hidden="true"></i><br />' + data[i].max_guest + ' Guests</div><div class="number_rooms"><i class="fa fa-bed fa-3x" aria-hidden="true"></i><br />' + data[i].number_rooms + ' Bedrooms</div><div class="number_bathrooms"><i class="fa fa-bath fa-3x" aria-hidden="true"></i><br />' + data[i].number_bathrooms + ' Bathroom</div></div><div class="description">' + data[i].description + '</div></article>');
+	}
+      }
+    });
 
   /*******************************************************
-    populate Places from frontend, instead of backend jinja
+    populate Places from frontend, instead of backend jinja;
+    filter places displayed based on amenity checkboxed list
    *******************************************************/
   $('button').click(function () {
-    $.post('http://0.0.0.0:5001/api/v1/places_search/',
-	   {
-	     Content-Type: 'application/json',
-	     data: {}
-	   },
-	   function(data, textStatus) {
-	     for (let i = 0; i < data.length - 1; i++) {
-	       $('section.places').append('<article>' + data[i] + '</article>');
-	     }
-	   });
+    $('article').remove();
+    $.ajax({
+      type: 'POST',
+      url: 'http://127.0.0.1:5002/api/v1/places_search/',
+      data: JSON.stringify({'amenities': Object.keys(ls_amen)}),
+      contentType: 'application/json',
+      success: function (data) {
+	for (let i = 0; i < data.length; i++) {
+	  $('section.places').append('<article><div class="title"><h2>' + data[i].name + '</h2><div class="price_by_night">' + data[i].price_by_night + '</div></div><div class="information"><div class="max_guest"><i class="fa fa-users fa-3x" aria-hidden="true"></i><br />' + data[i].max_guest + ' Guests</div><div class="number_rooms"><i class="fa fa-bed fa-3x" aria-hidden="true"></i><br />' + data[i].number_rooms + ' Bedrooms</div><div class="number_bathrooms"><i class="fa fa-bath fa-3x" aria-hidden="true"></i><br />' + data[i].number_bathrooms + ' Bathroom</div></div><div class="description">' + data[i].description + '</div></article>');
+	}
+      }
+    });
   });
 
 });
