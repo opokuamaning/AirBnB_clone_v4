@@ -18,7 +18,9 @@ $( document ).ready(function () {
     display red circle on top right of page if status ok
    *******************************************************/
   $.get('http://127.0.0.1:5002/api/v1/status/', function (data, textStatus) {
+    console.log(textStatus);
     if (textStatus === 'OK') {
+      console.log(textStatus);
       $('#api_status').addClass('available');
     } else {
       $('#api_status').removeClass('available');
@@ -28,24 +30,24 @@ $( document ).ready(function () {
   /*******************************************************
     populate Places from frontend, instead of backend jinja
    *******************************************************/
-/*  $.ajax({
+    $.ajax({
     type: 'POST',
-    contentType: 'application/json',
-    url: 'http://127.0.0.1:5002/api/v1/places_search/',
+    url: 'http://0.0.0.0:5002/api/v1/places_search/',
     data: '{}',
+    contentType: 'application/json',
     success: function(data) {
       for (let i = 0; i < data.length - 1; i++) {
-	console.log(data[i]);
-	$('section.places').append('<article>' + data[i] + '</article>');
+	    console.log(data[i]);
+	    $('section.places').append('<article>' + data[i] + '</article>');
       }
     },
-    error: function(err) {
-      alert('error' + JSON.stringify(err));
+    error: function(req, err) {
+      console.log(err);
     }
   });
-*/
+});
 
-  $.post('http://127.0.0.0:5002/api/v1/places_search/',
+/*  $.post('http://127.0.0.0:5002/api/v1/places_search/',
 	 {
 	   contentType: 'application/json',
 	   data: '{}'
@@ -57,4 +59,4 @@ $( document ).ready(function () {
 	 }
 	);
 
-});
+}); */
