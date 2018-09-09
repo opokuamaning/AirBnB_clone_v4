@@ -24,7 +24,7 @@ port = os.getenv('HBNB_API_PORT', 5000)
 # Cross-Origin Resource Sharing
 # cors = CORS(app, origins="0.0.0.0")
 # cors = CORS(app, resources={r'/*': {'origins': host}})
-cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+# cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 # app_views BluePrint defined in api.v1.views
 app.register_blueprint(app_views)
@@ -77,6 +77,18 @@ def global_error_handler(err):
         code = 500
     return make_response(jsonify(message), code)
 
+'''
+@app.after_request
+def add_cors_headers(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers.add('Access-Control-Allow-Headers', 'Cache-Control')
+    response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With')
+    response.headers.add('Access-Control-Allow-Headers', 'Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+    return response;
+'''
 
 def setup_global_errors():
     """
