@@ -34,7 +34,7 @@ $( document ).ready(function () {
    *******************************************************/
     $.ajax({
       type: 'POST',
-      url: 'http://127.0.0.1:5002/api/v1/places_search/',
+      url: 'http://0.0.0.0:5001/api/v1/places_search/',
       data: JSON.stringify({}),
       contentType: 'application/json',
       success: function (data) {
@@ -52,7 +52,7 @@ $( document ).ready(function () {
     $('article').remove();
     $.ajax({
       type: 'POST',
-      url: 'http://127.0.0.1:5002/api/v1/places_search/',
+      url: 'http://0.0.0.0:5001/api/v1/places_search/',
       data: JSON.stringify({'amenities': Object.keys(ls_amen)}),
       contentType: 'application/json',
       success: function (data) {
