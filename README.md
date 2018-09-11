@@ -1,8 +1,8 @@
 <img src="https://github.com/jarehec/AirBnB_clone_v3/blob/master/dev/HBTN-hbnb-Final.png" width="160" height=auto />
 
-# AirBnB Clone: Phase # 3
+# AirBnB Clone: Phase # 4
 
-: API with Swagger
+: Connect backend to frontend. Give life to search button that filters available housing based on states, cities, and amenities selected.
 
 ## Description
 
@@ -36,10 +36,11 @@ HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_test_db HBNB_TYPE_STORAGE=db \
 
 * __OS:__ Ubuntu 14.04 LTS
 * __language:__ Python 3.4.3
+* __frontend:__ Javascript, jQuery, Ajax
 * __web server:__ nginx/1.4.6
 * __application server:__ Flask 0.12.2, Jinja2 2.9.6
 * __web server gateway:__ gunicorn (version 19.7.1)
-* __database:__ mysql Ver 14.14 Distrib 5.7.18
+* __database:__ mysql Ver 14.14 Distrib 5.7.18, SQLAlchemy
 * __documentation:__ Swagger (flasgger==0.6.6)
 * __style:__
   * __python:__ PEP 8 (v. 1.7.0)
@@ -217,8 +218,8 @@ github repo
 * Kimberly Wong, [kjowong](https://github.com/kjowong) | [@kjowong](https://twitter.com/kjowong) | [kjowong@gmail.com](kjowong@gmail.com)
 * Carrie Ybay, [hicarrie](https://github.com/hicarrie) | [@hicarrie_](https://twitter.com/hicarrie_)
 * Jared Heck, [jarehec](https://github.com/jarehec) | [@jarehec](https://twitter.com/jarehec)
-* Melissa Ng [@MelissaN]('https://github.com/MelissaN') | [@MelissaNg__]('https://twitter.com/MelissaNg__')
-* Lisa Olson [@lisaolson]('https://github.com/lisaolson') | [@eunoia_lo]('https://twitter.com/eunoia_lo')
+* Melissa Ng [MelissaN](https://github.com/MelissaN) | [@MelissaNg__](https://twitter.com/MelissaNg__)
+* Lisa Olson [lisaolson](https://github.com/lisaolson) | [@eunoia_lo](https://twitter.com/eunoia_lo)
 
 ## License
 
